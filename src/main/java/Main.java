@@ -13,6 +13,8 @@ public class Main {
     private static final String OUTPUT_FILE = "src/main/resources/json/output.json";
     private static final int MINIMUM_OCTAVE_NUMBER = -3;
     private static final int MAXIMUM_OCTAVE_NUMBER = 5;
+    private static final int MINIMUM_NOTE_NUMBER = 1;
+    private static final int MAXIMUM_NOTE_NUMBER = 12;
 
     public static void main(String[] args) throws WrongNumberException, IOException {
         ObjectMapper mapper = new ObjectMapper();
@@ -33,6 +35,9 @@ public class Main {
             int noteNumber = note[1];
             if (octaveNumber < MINIMUM_OCTAVE_NUMBER || octaveNumber > MAXIMUM_OCTAVE_NUMBER) {
                 throw new WrongNumberException(String.format("Wrong octaveNumber: %s", octaveNumber));
+            }
+            if (noteNumber > MAXIMUM_NOTE_NUMBER || noteNumber < MINIMUM_NOTE_NUMBER){
+                throw new WrongNumberException(String.format("Wrong noteNumber: %s", noteNumber));
             }
             if (octaveNumber == MAXIMUM_OCTAVE_NUMBER && noteNumber > 1 || octaveNumber == MINIMUM_OCTAVE_NUMBER && noteNumber < 10) {
                 throw new WrongNumberException(String.format("Wrong octaveNumber: %s, noteNumber: %s",
@@ -71,8 +76,8 @@ public class Main {
             throws WrongNumberException {
         int[] result = new int[2];
         for (int i = 0; i < transposeNumber; i++) {
-            if (noteNumber == 12) {
-                noteNumber = 1;
+            if (noteNumber == MAXIMUM_NOTE_NUMBER) {
+                noteNumber = MINIMUM_NOTE_NUMBER;
                 octaveNumber++;
             } else {
                 noteNumber++;
@@ -91,8 +96,8 @@ public class Main {
             throws WrongNumberException {
         int[] result = new int[2];
         for (int i = 0; i < transposeNumber; i++) {
-            if (noteNumber == 1) {
-                noteNumber = 12;
+            if (noteNumber == MINIMUM_NOTE_NUMBER) {
+                noteNumber = MAXIMUM_NOTE_NUMBER;
                 octaveNumber--;
             } else {
                 noteNumber--;
