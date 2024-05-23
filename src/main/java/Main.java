@@ -36,7 +36,7 @@ public class Main {
             if (octaveNumber < MINIMUM_OCTAVE_NUMBER || octaveNumber > MAXIMUM_OCTAVE_NUMBER) {
                 throw new WrongNumberException(String.format("Wrong octaveNumber: %s", octaveNumber));
             }
-            if (noteNumber > MAXIMUM_NOTE_NUMBER || noteNumber < MINIMUM_NOTE_NUMBER){
+            if (noteNumber > MAXIMUM_NOTE_NUMBER || noteNumber < MINIMUM_NOTE_NUMBER) {
                 throw new WrongNumberException(String.format("Wrong noteNumber: %s", noteNumber));
             }
             if (octaveNumber == MAXIMUM_OCTAVE_NUMBER && noteNumber > 1 || octaveNumber == MINIMUM_OCTAVE_NUMBER && noteNumber < 10) {
@@ -85,7 +85,7 @@ public class Main {
         }
         result[0] = octaveNumber;
         result[1] = noteNumber;
-        if (result[0] == MAXIMUM_OCTAVE_NUMBER && result[1] > 1) {
+        if ((result[0] == MAXIMUM_OCTAVE_NUMBER && result[1] > 1) || octaveNumber > MAXIMUM_OCTAVE_NUMBER) {
             throw new WrongNumberException(String.format("Resulting notes falls out of the keyboard range, " +
                     "octaveNumber: %s, noteNumber: %s", octaveNumber, noteNumber));
         }
@@ -105,7 +105,7 @@ public class Main {
         }
         result[0] = octaveNumber;
         result[1] = noteNumber;
-        if (result[0] == MINIMUM_OCTAVE_NUMBER && result[1] < 10) {
+        if ((result[0] == MINIMUM_OCTAVE_NUMBER && result[1] < 10) || octaveNumber < MINIMUM_OCTAVE_NUMBER) {
             throw new WrongNumberException(String.format("Resulting notes falls out of the keyboard range, " +
                     "octaveNumber: %s, noteNumber: %s", octaveNumber, noteNumber));
         }
